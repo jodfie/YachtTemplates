@@ -1,0 +1,65 @@
+# Template info at https://yacht.sh/docs/Templates/Templates
+
+type: 1
+#Required This currently isn't in use. It's just here to keep compatibility with portainer but is ignored.
+title: App Title
+#Required This is what is displayed when in the apps list page. Punctuation is nice here and adds to the polish
+name: container-name
+#Required This is what the actual container is named.
+description: This is a description.
+#This is the description that is shown in the app list. \n is interpreted as a newline character
+logo: https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/transmission-icon.png
+#This is the logo that is show in the app list
+image: dev/application:latest
+#Required This is the image that's pulled from dockerhub. The tag (:latest) is optional.
+note: This is a note
+#This is shown when someone clicks on "VIEW" in the app list. It will render HTML appropriately.
+categories:
+- Other
+- Tools
+#A list of categories associated with the application. This is optional but sorting/filtering by category will eventually be a feature.
+platform: linux
+#The platform the image will run on.
+restart_policy: unless-stopped
+#Define your container restart policy.
+ports:
+- WebUI: 9091:9091/tcp
+- HTTPS: 9090:9090/tcp
+#Ports to be passed through. The host port is on the left of the : and the container port is on the right. Protocol is after the /. If no host port is specified a random one is used. You can label ports for the services that are on them. This will auto-fill the label field in the deploy form and give users a better understanding of the applications they're running.
+network_mode: bridge
+#You can set a certain network mode if you're using a legacy application that requires it. any ports mapped will not be passed through if you choose host as your networking mode and you cannot change the ports.
+volumes:
+- container: "/data"
+  bind: "!downloads"
+- container: "/etc/localtime"
+  bind: "!localtime"
+#List of bind mounts. Container will mount inside of the container and bind will mount on the host. The bind section can utilize Template Variables in the users settings so if they're set they'll be replaced by what's there. You can use a named volume by using the name of the volume instead of a path (no / at the beginning).
+sysctls:
+- net.ipv6.conf.all.disable_ipv6: '0'
+#Key value pair for sysctl options.
+cap_add:
+- NET_ADMIN
+#Value of capabilities you want to add to a container.
+env:
+- name: PUID
+  label: PUID
+  default: '1000'
+- name: PGID
+  label: PGID
+  default: '1000'
+- name: EnvWithDescription
+  label: EnvWithDescription
+  description: This is a description
+  default: default
+#Env is used to set environment variables within the docker container. The description and default are both optional. Label currently isn't used but will be what is shown as the name of the field in the deploy form.
+labels:
+- label: local.yacht.label
+  value: this is a label
+- label: local.yacht.otherlabel
+  value: this is another label
+#Labels can be used for automating services like traefik automatically as well as store information about containers (this is where port descriptions are stored on containers). These will show up in the advanced section like sysctls and capabilities.
+devices:
+- host: /dev/null
+  container: /dev/null
+#Devices allow devices to be passed through containers for things like transcoding.
+
