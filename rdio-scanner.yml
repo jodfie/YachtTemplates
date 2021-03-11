@@ -11,7 +11,7 @@ categories:
 platform: linux
 restart_policy: unless-stopped
 ports:
-  WebUI: 3000:3000
+- WebUI: 3000:3000
 network_mode: bridge
 volumes:
 - container: "/etc/localtime"
@@ -29,4 +29,4 @@ env:
   default: '1000'
 devices:
 - host: /dev/bus/usb
-container: /dev/bus/usb
+  container: /dev/bus/usb
