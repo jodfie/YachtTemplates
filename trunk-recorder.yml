@@ -1,0 +1,31 @@
+type: 1
+title: Trunk Recorder
+name: trunkrecorder
+description: Trunk Recorder is able to record the calls on trunked and conventional radio systems.
+logo: 
+image: 
+note: Trunk Recorder is able to record the calls on trunked and conventional radio systems. It uses 1 or more Software Defined Radios (SDRs) to do this. The SDRs capture large swatches of RF and then use software to process what was received. GNURadio is used to do this processing because it provides lots of convenient RF blocks that can be pieced together to allow for complex RF processing. The libraries from the amazing OP25 project are used for a lot of the P25 functionality. Multiple radio systems can be recorded at the same time.
+categories:
+- Other
+- SDR
+- Trunking
+platform: arm64
+restart_policy: unless-stopped
+network_mode: bridge
+volumes:
+- container: "/app/media"
+  bind: "/recordings"
+- container: "/etc/localtime"
+  bind: "!localtime"
+- container: "/app/config"
+  bind: ".config/appdata/trunkrecorder"
+env:
+- name: PUID
+  label: PUID
+  default: '1000'
+- name: PGID
+  label: PGID
+  default: '1000'
+devices:
+- host: /dev/bus/usb
+container: /dev/bus/usb
