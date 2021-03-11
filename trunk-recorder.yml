@@ -13,11 +13,11 @@ platform: arm64
 restart_policy: unless-stopped
 network_mode: bridge
 volumes:
-- container: "/app/media"
-  bind: "/recordings"
 - container: "/etc/localtime"
   bind: "!localtime"
-- container: "/app/config"
+- container: "/app/media"
+  bind: "/recordings"
+- container: "/app"
   bind: ".config/appdata/trunkrecorder"
 env:
 - name: PUID
