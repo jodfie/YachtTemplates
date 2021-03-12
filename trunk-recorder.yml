@@ -27,4 +27,4 @@ env:
   default: '1000'
 devices:
 - host: /dev/bus/usb
-container: /dev/bus/usb
+  container: /dev/bus/usb
