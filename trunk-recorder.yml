@@ -17,7 +17,7 @@
     - container: "/app/media"
       bind: "/recordings"
     - container: "/app"
-      bind: ".config/appdata/trunkrecorder"
+      bind: "/.config/appdata/trunkrecorder"
   env:
     - name: PUID
       label: PUID
