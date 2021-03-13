@@ -9,7 +9,7 @@
   platform: linux
   restart_policy: unless-stopped
   ports: 
-    - WebUI: 3000:3000
+    - WebUI: 3000:3000/tcp
   volumes:
     - container: /etc/localtime
       bind: “!localtime”
