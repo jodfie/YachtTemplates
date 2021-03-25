@@ -1,0 +1,37 @@
+type: 1
+title: Docusaurus V2
+name: docusaurusv2
+description: Docusaurus makes it easy to maintain Open Source documentation websites.
+image: awesometic/docusaurus:latest
+categories:
+- website
+- documentation
+platform: linux
+restart_policy: unless-stopped
+ports:
+- 8888:80/tcp
+network_mode: bridge
+volumes:
+- container: "/docusaurus"
+  bind: "!appconfig"
+- container: "/etc/localtime"
+  bind: "!localtime"
+env:
+- name: PUID
+  label: TARGET_UID
+  default: '1000'
+- name: PGID
+  label: TARGET_GID
+  default: '1000'
+- name: Auto Update
+  label: AUTO_UPDATE
+  description: Auto Update Docusaurus True or False
+  default: true
+- name: Website Name
+  label: WEBSITE_NAME
+  description: Name of your site
+  default: Docusaurus V2
+- name: Template
+  label: TEMPLATE
+  description: What Template you want to use
+  default: classic
