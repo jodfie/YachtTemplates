@@ -1,0 +1,33 @@
+type: 1
+title: Trunk Reorder 4.0 Beta
+name: trunk-recorder-beta
+description: This is a container for Trunk Recorder 4.0 Beta
+image: robotastic/trunk-recorder:4.0-beta-1
+note: This is a Beta you will still need to do config. See https://github.com/robotastic/trunk-recorder/wiki/Configuring-a-System
+categories:
+- Other
+- SDR
+platform: linux
+restart_policy: unless-stopped
+network_mode: bridge
+volumes:
+- container: "/etc/localtime"
+  bind: "!localtime"
+- container: "/data"
+  bind: "!downloads"
+- container: "/app"
+  bind: "!tr-data"
+- container: "/var/run/dbus"
+  bind: "/var/run/dbus"
+- container: "/var/run/avahi-daemon/socket"
+  bind: "/var/run/avahi-daemon/socket"
+sysctls:
+- net.ipv6.conf.all.disable_ipv6: '0'
+privileged: true
+env:
+- name: PUID
+  label: PUID
+  default: '1000'
+- name: PGID
+  label: PGID
+  default: '1000'

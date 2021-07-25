@@ -1,0 +1,35 @@
+type: 1
+title: Rdio Scanner
+name: rdio-scanner
+description: This is a Container for Rdio Scanner
+image:chuot/rdio-scanner:latest
+logo:
+note:
+categories:
+- Other
+- SDR
+platform: linux
+restart_policy: unless-stopped
+ports:
+- 3000:3000/tcp
+network_mode: bridge
+volumes:
+- container: "/data"
+  bind: "!downloads"
+- container: "/etc/localtime"
+  bind: "!localtime"
+- container: "/app/data"
+  bind: "~/config/AppData/Rdio-Scanner"
+sysctls:
+- net.ipv6.conf.all.disable_ipv6: '0'
+env:
+- name: PUID
+  label: PUID
+  default: '1000'
+- name: PGID
+  label: PGID
+  default: '1000'
+- name: TZ
+  label: TZ
+  description: TimeZone
+  default: America/New York
